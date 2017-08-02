@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
+use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,11 +53,11 @@ class PostController extends Controller
     /**
      * @Route("/edit/{id}")
      */
-    public function editAction($id)
+    public function editAction(Post $post, Request $request)
     {
-        $post = $this->getDoctrine()->getRepository("AppBundle:Post")->find($id);
-
         $form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
             $post = ($form->getData());
@@ -68,10 +68,10 @@ class PostController extends Controller
             $doctrine->persist($post);
             $doctrine->flush();
 
-            return $this->redirect('/posts');
+            return $this->redirect('/posts/edit/' . $post->getId());
         }
 
-        return $this->redirect('/posts/edit/' . $id);
+        return $this->render('posts/create.html.twig', ['form'=>$form->createView()]);
     }
 
     /**

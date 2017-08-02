@@ -10,7 +10,7 @@
             {% for p in posts %}
                 <div class="posts">
                     <h2><a href="/posts/edit/{{ p.getId() }}">{{ p.getTitle() }}</a></h2>
-                    <small>Criado em {{ p.createdAt() | date("d/m/y H:i:ss") }}</small>
+                    <small>Criado em {{ p.createdAt() | date("d/m/y H:i:ss") }}. Atualizado em {{ p.updatedAt() | date("d/m/y H:i:ss") }}</small>
                     <p>{{ p.getContent() }}</p>
                 </div>
             {% endfor %}
