@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle"
+            "AppBundle\\": "src/AppBundle",
+            "Heptum\\AdminBundle\\": "src/Heptum/AdminBundle"
         },
         "classmap": [
             "app/AppKernel.php",
