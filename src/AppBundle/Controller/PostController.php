@@ -44,6 +44,8 @@ class PostController extends Controller
             $doctrine->persist($post);
             $doctrine->flush();
 
+            $this->addFlash("success", "Post inserido com sucesso");
+
             return $this->redirect('/posts');
         }
 
@@ -68,10 +70,26 @@ class PostController extends Controller
             $doctrine->persist($post);
             $doctrine->flush();
 
+            $this->addFlash("success", "Post editado com sucesso");
+
             return $this->redirect('/posts/edit/' . $post->getId());
         }
 
         return $this->render('posts/create.html.twig', ['form'=>$form->createView()]);
+    }
+
+    /**
+     * @param Post $post
+     * @Route("/remove/{post}")
+     */
+    public function removeAction(Post $post)
+    {
+        $this->getDoctrine()->getManager()->remove($post);
+        $this->getDoctrine()->getManager()->flush();
+
+        $this->addFlash("warning", "Post removido com sucesso");
+
+        return $this->redirect('/posts');
     }
 
     /**

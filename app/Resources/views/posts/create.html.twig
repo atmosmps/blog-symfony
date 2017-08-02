@@ -1,10 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
+    <div class="container">
 
-    <button type="submit" class="btn-lg btn btn success">salvar</button>
+        <div class="col-md-12">
+            {% include 'includes/messages.html.twig' %}
+        </div>
 
-    {{ form_end(form) }}
+        <div class="col-md-12">
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <button type="submit" class="btn-lg btn btn success">salvar</button>
+
+            {{ form_end(form) }}
+        </div>
+
+    </div>
 {% endblock %}
