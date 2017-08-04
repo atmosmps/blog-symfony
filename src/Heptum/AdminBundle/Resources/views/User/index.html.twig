@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Criado em</th>
+                    <th>Atualizado em</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                    <tr>
+                        <td> {{ u.getId() }} </td>
+                        <td> {{ u.getName() }} </td>
+                        <td> {{ u.getEmail() }} </td>
+                        <td> {{ u.getCreatedAt() | date("d/m/Y") }} </td>
+                        <td> {{ u.getUpdatedAt() | date("d/m/Y") }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
