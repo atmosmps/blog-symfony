@@ -6,6 +6,10 @@ security:
     providers:
         in_memory:
             memory: ~
+        db:
+            entity:
+                class: AdminBundle\Entity\Users
+                property: email
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +18,14 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: true
+            provider: db
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -22,3 +33,12 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    encoders:
+        AdminBundle\Entity\Users:
+            algorithm: bcrypt
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/new-user, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
