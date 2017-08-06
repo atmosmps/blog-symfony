@@ -3,6 +3,7 @@
 namespace Heptum\AdminBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Users
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Heptum\AdminBundle\Repository\UsersRepository")
  */
-class Users
+class Users implements UserInterface
 {
     /**
      * @var int
@@ -56,6 +57,12 @@ class Users
      */
     private $updatedAt;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="roles", type="string", length=255)
+     */
+    private $roles;
 
     /**
      * Get id
@@ -140,6 +147,22 @@ class Users
     }
 
     /**
+     * @param string $roles
+     */
+    public function setRoles(string $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -185,5 +208,19 @@ class Users
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }
