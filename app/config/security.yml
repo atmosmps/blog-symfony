@@ -8,7 +8,7 @@ security:
             memory: ~
         db:
             entity:
-                class: AdminBundle\Entity\Users
+                class: Heptum\AdminBundle\Entity\Users
                 property: email
 
     firewalls:
@@ -35,7 +35,7 @@ security:
             #form_login: ~
 
     encoders:
-        AdminBundle\Entity\Users:
+        Heptum\AdminBundle\Entity\Users:
             algorithm: bcrypt
 
     access_control:
