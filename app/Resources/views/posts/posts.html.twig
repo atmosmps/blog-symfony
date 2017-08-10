@@ -3,7 +3,9 @@
 {% block body %}
     <div class="container">
         <ul>
-            <a href="/posts/create"><div class="btn btn-primary">Criar post</div></a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="/posts/create"><div class="btn btn-primary">Criar post</div></a>
+            {% endif %}
 
             <div class="col-md-12">
                 {% include 'includes/messages.html.twig' %}
@@ -13,7 +15,9 @@
                 {% for p in posts %}
                     <div class="posts">
                         <h2><a href="/posts/edit/{{ p.getId() }}">{{ p.getTitle() }}</a></h2>
-                        <small><a href="/posts/remove/{{ p.getId() }}">Deletar</a></small>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <small><a href="/posts/remove/{{ p.getId() }}">Deletar</a></small>
+                        {% endif %}
                         <br>
                         <small>Criado em {{ p.createdAt() | date("d/m/y H:i:ss") }}. Atualizado em {{ p.updatedAt() | date("d/m/y H:i:ss") }}</small>
                         <p>{{ p.getContent() }}</p>
