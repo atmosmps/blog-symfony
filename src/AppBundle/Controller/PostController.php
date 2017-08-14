@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Post;
 use AppBundle\Form\PostType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,6 +29,7 @@ class PostController extends Controller
 
     /**
      * @Route("/create")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function createAction(Request $request)
     {
@@ -54,6 +56,7 @@ class PostController extends Controller
 
     /**
      * @Route("/edit/{id}")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editAction(Post $post, Request $request)
     {
@@ -81,6 +84,7 @@ class PostController extends Controller
     /**
      * @param Post $post
      * @Route("/remove/{post}")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function removeAction(Post $post)
     {
